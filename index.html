@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abhinav Rai — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #10161c;
+    --surface: #171f27;
+    --surface-2: #1d2731;
+    --line: #2a3542;
+    --text: #e9edf0;
+    --muted: #8fa0ac;
+    --amber: #e39152;
+    --teal: #5fada0;
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f5f2ec;
+      --surface: #ffffff;
+      --surface-2: #efe9df;
+      --line: #ddd5c6;
+      --text: #1b1f22;
+      --muted: #6b6459;
+      --amber: #c96f2e;
+      --teal: #3f8377;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f2ec;
+    --surface: #ffffff;
+    --surface-2: #efe9df;
+    --line: #ddd5c6;
+    --text: #1b1f22;
+    --muted: #6b6459;
+    --amber: #c96f2e;
+    --teal: #3f8377;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; margin: 0; letter-spacing: -0.01em; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    position: sticky; top: 0; top: env(safe-area-inset-top, 0px);
+    z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+  header.top .mark { font-weight: 600; font-size: 15px; }
+  header.top nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  header.top nav a:hover { color: var(--text); }
+  @media (max-width: 560px) { header.top nav { display: none; } }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .hero { padding-top: 72px; padding-bottom: 56px; }
+  .hero .kicker { color: var(--teal); font-size: 14px; margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.15; max-width: 12ch; }
+  .hero p.lede { color: var(--muted); font-size: 17px; max-width: 46ch; margin-top: 18px; }
+  .hero .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: var(--radius); font-size: 14px; font-weight: 500; border: 1px solid var(--line); }
+  .btn.solid { background: var(--amber); color: #10161c; border-color: var(--amber); }
+  .btn.solid:hover { opacity: 0.9; }
+  .btn:not(.solid):hover { border-color: var(--muted); }
+
+  .eyebrow { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+  h2.title { font-size: 22px; margin-bottom: 8px; }
+
+  .about p { color: var(--muted); max-width: 62ch; }
+  .about .facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .fact { border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 12px; font-size: 13px; color: var(--muted); }
+
+  .skillgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 22px; margin-top: 6px; }
+  .skillgrid h3 { font-size: 13px; color: var(--teal); font-weight: 600; margin-bottom: 8px; }
+  .skillgrid p { color: var(--muted); font-size: 14px; margin: 0; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-top: 16px; }
+  .card:first-of-type { margin-top: 24px; }
+  .card .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .card h3 { font-size: 17px; }
+  .card .stack { color: var(--teal); font-size: 12.5px; margin-top: 4px; }
+  .card p { color: var(--muted); font-size: 14.5px; margin: 10px 0 0; max-width: 58ch; }
+  .card .links { margin-top: 14px; display: flex; gap: 16px; font-size: 13.5px; }
+  .card .links a { color: var(--amber); border-bottom: 1px solid transparent; }
+  .card .links a:hover { border-color: var(--amber); }
+
+  .train .card p { margin-top: 6px; }
+  .train .hours { color: var(--muted); font-size: 13px; }
+
+  .achieve { display: grid; gap: 14px; margin-top: 24px; }
+  .achieve .item { display: flex; gap: 14px; align-items: baseline; }
+  .achieve .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex: none; margin-top: 8px; }
+  .achieve h3 { font-size: 15.5px; font-weight: 600; }
+  .achieve .when { color: var(--muted); font-size: 13px; }
+
+  .edu .item { margin-top: 20px; }
+  .edu h3 { font-size: 16px; }
+  .edu .when { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  .edu .score { color: var(--teal); font-size: 13.5px; margin-top: 4px; }
+
+  footer.contact { text-align: left; }
+  footer.contact h2 { font-size: 28px; max-width: 16ch; }
+  footer.contact p.lede { color: var(--muted); margin-top: 14px; max-width: 48ch; }
+  footer.contact .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .foot-meta { padding: 24px 0 48px; color: var(--muted); font-size: 12.5px; display: flex; justify-content: space-between; }
+  code.quote { font-family: monospace; font-size: 12.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">Abhinav Rai</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certs</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="kicker">Lucknow, India — Final-year CSE</div>
+    <h1>Building full-stack apps, one idea at a time.</h1>
+    <p class="lede">I'm a computer science undergrad who builds with the MERN stack and sharpens problem-solving with DSA in Java. When I'm not shipping projects, I'm usually behind a camera or planning the next trip to the hills.</p>
+    <div class="links">
+      <a class="btn solid" href="mailto:abhinavrai9453@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/abhi9rai">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/abhi9rai/">LinkedIn</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="eyebrow">About</div>
+    <p>Final-year B.Tech CSE student at AKTU, Lucknow, with hands-on experience shipping full-stack and ML-adjacent projects rather than just studying them. Comfortable across the MERN stack, and currently deepening DSA with Java alongside explorations in retrieval-augmented generation. Outside of code: photography, editing, travel, and mountains.</p>
+    <div class="facts">
+      <div class="fact">Java · Python · C · JavaScript</div>
+      <div class="fact">React · Node.js · Express · MongoDB</div>
+      <div class="fact">DSA · OOPs · DBMS · OS · Networks</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="eyebrow">Projects</div>
+
+    <div class="card">
+      <div class="row"><h3>MedKart — Pharmacy Management System</h3></div>
+      <div class="stack">React.js · Node.js · Express.js · MongoDB</div>
+      <p>A full-stack pharmacy platform covering inventory, orders, and billing workflows, with REST APIs connecting the React frontend to an Express/MongoDB backend. Deployed live on Vercel.</p>
+      <div class="links">
+        <a href="https://github.com/abhi9rai/MedKart-Pharmacy-Management-System">GitHub</a>
+        <a href="https://medkart-online-pharmacy-management.vercel.app/">Live Demo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row"><h3>PrepSense — AI Study Assistant</h3></div>
+      <div class="stack">Node.js · Express.js · RAG · LLM</div>
+      <p>Upload notes, PYQs, or vocab lists as PDFs and ask questions in plain English. Parses documents into a searchable knowledge base for context-aware, accurate answers. Deployed on Render.</p>
+      <div class="links">
+        <a href="https://github.com/abhi9rai/prepsense">GitHub</a>
+        <a href="https://prepsense-9lsz.onrender.com/">Live Demo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row"><h3>Face Identification & Attendance System</h3></div>
+      <div class="stack">React.js · Flask · OpenCV · face-recognition</div>
+      <p>An employee enrollment and attendance system using face capture and recognition. React handles login, dashboard, and camera capture; Flask REST APIs connect to OpenCV-based image processing on the backend.</p>
+    </div>
+
+    <div class="card">
+      <div class="row"><h3>AI-Powered Carbon Footprint Estimator</h3></div>
+      <div class="stack">Python · Streamlit · Pandas · NumPy</div>
+      <p>Estimates monthly CO₂ emissions from transportation, energy, diet, and lifestyle inputs using an MLPRegressor model, with category-wise visualizations and practical recommendations.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">Skills & Technologies</div>
+    <div class="skillgrid">
+      <div><h3>Languages</h3><p>Java, Python, C, JavaScript</p></div>
+      <div><h3>Web & MERN</h3><p>HTML, CSS, React.js, Node.js, Express.js, MongoDB</p></div>
+      <div><h3>Libraries</h3><p>Pandas, NumPy, Matplotlib</p></div>
+      <div><h3>Tools</h3><p>Git, GitHub, VS Code</p></div>
+      <div><h3>Core Subjects</h3><p>DSA, OOPs, DBMS, Operating Systems, Computer Networks, Software Engineering</p></div>
+      <div><h3>Currently Learning</h3><p>Advanced DSA with Java, RAG / LLM pipelines</p></div>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="eyebrow">Licenses & Certifications</div>
+    <div class="achieve">
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>MERN: Advanced MERN Development</h3>
+          <div class="when">Skillsoft · Course completion</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>ChatGPT for Students — The Bharat AI Initiative</h3>
+          <div class="when">HCL GUVI, powered by OpenAI · Issued September 2026</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>TCS iON Career Edge — Generative AI Essentials</h3>
+          <div class="when">Tata Consultancy Services · Apr – Sep 2026</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Full Stack Development — 90 Hour Project-Based Training</h3>
+          <div class="when">GRAStech, BBD Campus Lucknow · Jun – Aug 2026</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Python Data Structures and Algorithms</h3>
+          <div class="when">Infosys Springboard · May 2025</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Basics of Python</h3>
+          <div class="when">Infosys Springboard · May 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="train">
+    <div class="eyebrow">Training</div>
+    <div class="card">
+      <div class="row">
+        <h3>Full Stack Development Trainee</h3>
+        <span class="hours">90 hours</span>
+      </div>
+      <div class="stack">GRAStech</div>
+      <p>Project-based full-stack training covering frontend and backend development through practical implementation — MedKart was built during this program.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Achievements</div>
+    <div class="achieve">
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Certificate of Appreciation — Learnovate Enterprises</h3>
+          <div class="when">Recognized for completing the Soft Skill Program at Babu Banarasi Das Educational Group · April 2026</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Full Stack Development Certification — GRAStech</h3>
+          <div class="when">90-hour project-based training program</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="eyebrow">Education</div>
+    <div class="edu">
+      <div class="item">
+        <h3>Dr. A.P.J. Abdul Kalam Technical University (AKTU)</h3>
+        <div class="when">B.Tech, Computer Science & Engineering · 2023 – 2027</div>
+        <div class="score">76.66% through 6th semester</div>
+      </div>
+      <div class="item">
+        <h3>Rani Laxmi Bai Memorial School, Lucknow</h3>
+        <div class="when">Class XII, CBSE · 2021 – 2022</div>
+        <div class="score">78%</div>
+      </div>
+      <div class="item">
+        <h3>Rani Laxmi Bai Memorial School, Lucknow</h3>
+        <div class="when">Class X, CBSE · 2019 – 2020</div>
+        <div class="score">93.66%</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Open to software developer internships and full-time roles.</h2>
+    <p class="lede">If you've got something worth building, I'd like to hear about it.</p>
+    <div class="links">
+      <a class="btn solid" href="mailto:abhinavrai9453@gmail.com">abhinavrai9453@gmail.com</a>
+      <a class="btn" href="https://github.com/abhi9rai">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/abhi9rai/">LinkedIn</a>
+    </div>
+  </footer>
+
+  <div class="foot-meta">
+    <span>© 2026 Abhinav Rai</span>
+    <code class="quote">while(alive) { keepBuilding(); }</code>
+  </div>
+
+</div>
+</body>
+</html>
